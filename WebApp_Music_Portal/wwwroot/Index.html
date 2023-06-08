@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Список студентов</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/site2.css" asp-append-version="true" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+
+</head>
+<body>
+
+    <div style=" margin-top: 50px; margin-bottom: 30px;">
+        <a href="javascript:void(0)" class="MusicPortal">Адмін Панель Музичний портал UA_2023</a>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top menuW ">
+        <div class="container">
+            <div class="navbar-header" id="head1">
+                <a href="javascript:void(0)" class="navbar-brand menu" id="indexUser_" style="margin-right:5px; margin-left:-200px; color:white;">Список користувачів</a>
+                <a href="javascript:void(0)" class="navbar-brand menu" id="indexMusics_" style="margin-right: 5px;  color: white;">Список пісень</a>
+                <a href="javascript:void(0)" class="navbar-brand menu" id="indexGenres_" style="margin-right: 5px;  color: white;">Список жанрів</a>
+            </div>
+        </div>
+    </div>
+ 
+    
+
+    <div>
+        <div id="indexUsers" style="display:none; margin-top:100px;">
+            <a href="javascript:void(0)" class="navbar-brand MusicPortal" id="newUser" style="margin-left: 550px; color: white;">Додавання користувача</a>
+            <div class="row">
+                <div class="col-md-8 offset-md-1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h2>Ім'я</h2>
+                                </th>
+                                <th>
+                                    <h2>Електронна пошта</h2>
+                                </th>
+                                <th>
+                                    <h2>Вік</h2>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="blockUsers"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="UserCreate" style="display:none;">
+
+            <div class="row" style="text-align:center;">
+                <div class="col-md-4 offset-md-2">
+                    <form asp-action="Create">
+                        <div id="CreateError" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label lable">Ім'я</label>
+                            <input id="Name_Cr" class="form-control str">
+                            <span id="Name_CrError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Пароль</label>
+                            <input id="Password_Cr" class="form-control str" type="password" />
+                            <span id="Password_CrError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Підтвердити пароль</label>
+                            <input id="PasswordConfirm_Cr" class="form-control str" type="password" />
+                            <span id="PasswordConfirm_CrError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Електронна пошта</label>
+                            <input id="Email_Cr" class="form-control str" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" required />
+                            <span id="Email_CrError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Вік</label>
+                            <input id="Age_Cr" class="form-control str" />
+                            <span id="Age_CrError" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="CreateUser">Реєстрація</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="UserEdit" style="display:none;">
+
+            <div class="row" style="text-align:center;">
+                <div class="col-md-4 offset-md-2">
+                    <form asp-action="Edit">
+                        <input type="hidden" id="IdUsed" value="0" />
+                        <div id="ActivateUserError" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label lable">Ім'я</label>
+                            <input id="Name_r" class="form-control str">
+                            <span id="Name_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Пароль</label>
+                            <input id="Password_r" class="form-control str" />
+                            <span id="Password_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Підтвердити пароль</label>
+                            <input id="PasswordConfirm_r" class="form-control str" />
+                            <span id="PasswordConfirm_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Електронна пошта</label>
+                            <input id="Email_r" class="form-control str" />
+                            <span id="Email_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Вік</label>
+                            <input id="Age_r" class="form-control str" />
+                            <span id="Age_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Активувати</label>
+                            <input id="Activate_r" class="form-control str" />
+                            <span id="Activate_rError" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="EditUser">Реєстрація</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="indexGenres" style="display:none;">
+
+            <a href="javascript:void(0)" class="navbar-brand  MusicPortal" id="newGenres" style="margin-left: 550px; color: white;">Додавання жанру</a>
+            <div class="row">
+                <div class="col-md-8 offset-md-1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h2>Жанр</h2>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="blockGenres"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div id="GenreCreate" style="display:none;">
+            <div class="row" style="text-align:center;">
+                <div class="col-md-4 offset-md-2">
+                    <form asp-action="Create">
+                        <div class="text-danger"><p id="CreateGenreError"></p> </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Назва</label>
+                            <input id="Genre_Cr" class="form-control str">
+                            <span id="Genre_CrError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="CreateGenre">Додати</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="GenreEdit" style="display:none;">
+            <div class="row" style="text-align:center;">
+                <div class="col-md-4 offset-md-2">
+                    <form asp-action="Create">
+                        <input type="hidden" id="IdGenre" value="0" />
+                        <div class="text-danger"><p id="CreateGenreError2"></p> </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Назва</label>
+                            <input id="Genre_r" class="form-control str">
+                            <span id="Genre_rError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="EditGenre">редагування</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="indexMusics" style="display:none;">
+
+            <a href="javascript:void(0)" class="navbar-brand MusicPortal" id="newMusic" style="margin-left: 1200px; color: white;">Додати пісню</a>
+
+
+            <div class="row">
+                <div class="col-md-8 offset-md-1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h2>Назва</h2>
+                                </th>
+                                <th>
+                                    <h2>Виконавець</h2>
+                                </th>
+                                <th>
+                                    <h2>Розмір</h2>
+                                </th>
+                                <th>
+                                    <h2>Рейтинг</h2>
+                                </th>
+                                <th> <h2 class="lightning"></h2></th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody id="listMusic"></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="MusicCreate" style="display:none;">
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <form enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" id="CreateMusicError" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label lable">Назва</label>
+                            <input id="Music_Name" class="form-control str" name="Music_Namej" />
+                            <span id="Music_NameError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Файл</label>
+                            <label class="input-file">
+                                <span class="input-file-text" type="text"></span>
+                                <input type="file" name="uploadedFilej" id="UploadedFile_" class="str">
+                                <span class="input-file-btn span">Обеpiть файл</span>
+                            </label>
+                            <span name="uploadedFiled" id="uploadedFiled" class="text-danger err"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Виконавець</label>
+                            <input id="Music_Executor" class="form-control str" name="Music_Executorj" />
+                            <span id="Music_ExecutorError" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label class="control-label lable">Оберіть жанр:</label>
+                            <select id="MyComboBox_" name="myComboBoxj" class="form-control">
+                            </select>
+                            <span id="MyComboBox_Error" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="CreateMus">Додати</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="MusicEdit" style="display:none;">
+            <div class="row">
+                <div class="col-md-4 offset-md-2">
+                    <form>
+                        <input type="hidden" id="IdMusic" value="0" />
+                        <div asp-validation-summary="ModelOnly" id="CreateMusicError" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label lable">Назва</label>
+                            <input id="Music_NameE" class="form-control str" name="Music_Namej" />
+                            <span id="Music_NameErrorE" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label lable">Виконавець</label>
+                            <input id="Music_ExecutorE" class="form-control str" name="Music_Executorj" />
+                            <span id="Music_ExecutorErrorE" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label class="control-label lable">Оберіть жанр:</label>
+                            <select id="MyComboBox_E" class="form-control">
+                            </select>
+                            <span id="MyComboBox_ErrorE" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <a href="javascript:void(0)" class="btn btn-primary button" id="EditMus">редагувати</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; Найкращий Музичний портал UA_2023
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/js/site2.js"></script>
+
+</body>
+
+</html>
